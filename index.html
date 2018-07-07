@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Demo Beautiful Registration Form with HTML5 and CSS3</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="demo.css" media="all" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.mobile.min.css" />
+    <script src="https://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
+    <style type="text/css">
+    span.k-datetimepicker{
+      margin-top:1.5em;
+    }
+    .k-content{
+      position: relative;
+      }
+    .k-datetimepicker .k-select .k-link-date{
+      margin-left: -2.285em;
+    }
+    .k-datetimepicker .k-picker-wrap .k-icon{
+          margin: 0px 20px;
+    }
+    .container{
+      min-width: 450px;
+    }
+      .logo img{
+        width:22%;
+      }
+      .form{
+
+            min-width: 400px;
+            width:80%;
+    margin: 0 auto;
+    padding-left: 20px;
+        padding-right: 20px;
+      }
+  table{
+    width: 100%;
+  }
+      table,table tr, table td, table th {
+border: 1px solid black;
+      }
+
+      table td{
+        width:20px;
+        height: 20px;
+      }
+      .start-day-tooltip,.end-day-tooltip{
+        position: absolute;
+    right: 5em;
+      }
+      .start-time-tooltip,.end-time-tooltip{
+            position: absolute;
+    right: 0.5em;
+      }
+      #save-shift{
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #9aa9b8);
+  background-image: -moz-linear-gradient(top, #3498db, #9aa9b8);
+  background-image: -ms-linear-gradient(top, #3498db, #9aa9b8);
+  background-image: -o-linear-gradient(top, #3498db, #9aa9b8);
+  background-image: linear-gradient(to bottom, #3498db, #9aa9b8);
+  -webkit-border-radius: 21;
+  -moz-border-radius: 21;
+  border-radius: 21px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 7px 20px 7px 20px;
+  text-decoration: none;
+      margin-left: 5em;
+    margin-top:2em;
+}
+
+#save-shift:hover {
+  background: #236187;
+  background-image: -webkit-linear-gradient(top, #236187, #3498db);
+  background-image: -moz-linear-gradient(top, #236187, #3498db);
+  background-image: -ms-linear-gradient(top, #236187, #3498db);
+  background-image: -o-linear-gradient(top, #236187, #3498db);
+  background-image: linear-gradient(to bottom, #236187, #3498db);
+  text-decoration: none;
+}
+    .demo-section  h2{
+      color: blue;
+      font-size: 20px;
+      margin-left: 0.5em;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+			<header>
+				<h1>Hello, Karen Vaisman</h1>
+        <div class="logo">
+        <img src="images/picture.jpg">
+    </div>
+    <p>Your title :  Surgeon</p>
+    <p>Telephone: (021) 215 21 25</p>
+    <h1>Please choose your shift hours</h1>
+    <h5>Choose Day and Time on the right side</h5>
+            </header>       
+
+      <div  class="form">
+
+        <div id="example">
+
+            <div class="demo-section k-content">
+      
+                <h2>Your shift starts on :</h2>
+                <span class="start-day-tooltip">Day</span>
+                <span class="start-time-tooltip">Time</span>
+                <input id="start" style="width: 100%;" />
+                <h2 style="margin-top: 2em;">Your shift ends on :</h2>
+                <span class="end-day-tooltip">Day</span>
+                <span class="end-time-tooltip">Time</span>
+                <input id="end" style="width: 100%;" /> 
+            </div>
+            <div>
+              <button id="save-shift">Save selected shift</button>
+              <h1>Your Shifts :</h1>
+              <table id="shifts">
+                <thead>
+                  <tr>
+                    <th>Start</th>
+                    <th>Finish</th>
+                    <th>Shift Duration</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    function startChange() {
+                        var startDate = start.value(),
+                        endDate = end.value();
+
+                        if (startDate) {
+                            startDate = new Date(startDate);
+                            startDate.setDate(startDate.getDate());
+                            end.min(startDate);
+                        } else if (endDate) {
+                            start.max(new Date(endDate));
+                        } else {
+                            endDate = new Date();
+                            start.max(endDate);
+                            end.min(endDate);
+                        }
+                    }
+
+                    function endChange() {
+                        var endDate = end.value(),
+                        startDate = start.value();
+
+                        if (endDate) {
+                            endDate = new Date(endDate);
+                            endDate.setDate(endDate.getDate());
+                            start.max(endDate);
+                        } else if (startDate) {
+                            end.min(new Date(startDate));
+                        } else {
+                            endDate = new Date();
+                            start.max(endDate);
+                            end.min(endDate);
+                        }
+                    }
+
+                    let today = kendo.date.today();
+
+                    let start = $("#start").kendoDateTimePicker({
+                        value: today,
+                        change: startChange,
+                        parseFormats: ["MM/dd/yyyy"]
+                    }).data("kendoDateTimePicker");
+
+                    let end = $("#end").kendoDateTimePicker({
+                        value: today,
+                        change: endChange,
+                        parseFormats: ["MM/dd/yyyy"]
+                    }).data("kendoDateTimePicker");
+                });
+                document.getElementById("save-shift").addEventListener("click",function(){
+                  let shiftStart=kendo.toString(new Date(document.getElementById("start").value),"F");
+                  ;
+                  let shiftEnd=kendo.toString(new Date(document.getElementById("end").value),"F");;
+                  let table=document.getElementById("shifts");
+                  let row=table.insertRow(1);
+                  let cell1 = row.insertCell(0);
+                  let cell2 = row.insertCell(1);
+                  let cell3=row.insertCell(2);
+                  let periodInMs=new Date(document.getElementById("end").value).getTime()-(new Date(document.getElementById("start").value).getTime());
+                  let periodInHours=periodInMs/1000/60/60;
+                cell1.innerHTML =shiftStart;
+                  cell2.innerHTML =shiftEnd ;
+                   cell3.innerHTML =periodInHours+" hours";
+                })
+             
+            </script>
+
+        </div>
+</div>      
+</div>
+
+</body>
+</html>
